@@ -16,9 +16,11 @@
     "start": "nwb serve-react-demo",
     "test": "nwb test-react",
     "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server"
+    "test:watch": "nwb test-react --server",
+    "gh-pages": "gh-pages ./demo/dist"
   },
   "dependencies": {
+    "gh-pages": "^1.0.0",
     "jsonp": "^0.2.1",
     "prop-types": "^15.5.10",
     "whatwg-fetch": "^2.0.3"
