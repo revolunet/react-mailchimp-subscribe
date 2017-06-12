@@ -1,11 +1,15 @@
 import React from "react"
 import PropTypes from "prop-types"
+import jsonp from "jsonp"
+
+const getAjaxUrl = url => url.replace('/post?', '/post-json?')
 
 class SubscribeForm extends React.Component {
   constructor(props, ...args) {
     super(props, ...args)
     this.state = {
-      status: null
+      status: null,
+      msg: null
     }
   }
   onSubmit = e => {
@@ -16,17 +20,31 @@ class SubscribeForm extends React.Component {
       })
       return
     }
+    const url = getAjaxUrl(this.props.action) + `&EMAIL=${this.input.value}`;
     this.setState(
       {
-        status: "sending"
-      },
-      () => {
-        setTimeout(() => {
+        status: "sending",
+        msg: null
+      }, () => jsonp(url, {
+        param: "c"
+      }, (err, data) => {
+        if (err) {
           this.setState({
-            status: "success"
+            status: 'error',
+            msg: err
           })
-        }, 1000)
-      }
+        } else if (data.result !== 'success') {
+          this.setState({
+            status: 'error',
+            msg: data.msg
+          })
+        } else {
+          this.setState({
+            status: 'success',
+            msg: data.msg
+          })
+        }
+      })
     )
   }
   render() {
@@ -71,7 +89,7 @@ SubscribeForm.defaultProps = {
     inputPlaceholder: "Votre email",
     btnLabel: "Envoyer",
     sending: "Envoi en cours...",
-    success: "Merci de votre intérêt pour Prizoners !<p>Nous devons confirmer votre adresse e-mail. Pour compléter le processus d'abonnement, veuillez cliquer sur le lien contenu dans l'e-mail que nous venons de vous envoyer.</p>",
+    success: "Merci de votre intérêt!<p>Nous devons confirmer votre adresse e-mail. Pour compléter le processus d'abonnement, veuillez cliquer sur le lien contenu dans l'e-mail que nous venons de vous envoyer.</p>",
     error: "Oops, impossible d'enregistrer cette adresse"
   },
   styles: {

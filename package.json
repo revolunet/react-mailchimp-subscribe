@@ -19,7 +19,9 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
-    "prop-types": "^15.5.10"
+    "jsonp": "^0.2.1",
+    "prop-types": "^15.5.10",
+    "whatwg-fetch": "^2.0.3"
   },
   "peerDependencies": {
     "react": "15.x"
