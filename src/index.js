@@ -1,0 +1,93 @@
+import React from "react"
+import PropTypes from "prop-types"
+
+class SubscribeForm extends React.Component {
+  constructor(props, ...args) {
+    super(props, ...args)
+    this.state = {
+      status: null
+    }
+  }
+  onSubmit = e => {
+    e.preventDefault()
+    if (!this.input.value || this.input.value.length < 5 || this.input.value.indexOf("@") === -1) {
+      this.setState({
+        status: "error"
+      })
+      return
+    }
+    this.setState(
+      {
+        status: "sending"
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({
+            status: "success"
+          })
+        }, 1000)
+      }
+    )
+  }
+  render() {
+    const { action, messages, className, style, styles } = this.props
+    const { status } = this.state
+    return (
+      <div className={className} style={style}>
+        <form action={action} method="post" noValidate>
+          <div>
+            <input
+              ref={node => (this.input = node)}
+              type="email"
+              defaultValue=""
+              name="EMAIL"
+              required={true}
+              placeholder={messages.inputPlaceholder}
+            />
+            <button
+              disabled={this.state.status === "sending" || this.state.status === "success"}
+              onClick={this.onSubmit}
+              type="submit"
+            >
+              {messages.btnLabel}
+            </button>
+          </div>
+          {status === "sending" && <p style={styles.sending} dangerouslySetInnerHTML={{ __html: messages.sending }} />}
+          {status === "success" && <p style={styles.success} dangerouslySetInnerHTML={{ __html: messages.success }} />}
+          {status === "error" && <p style={styles.error} dangerouslySetInnerHTML={{ __html: messages.error }} />}
+        </form>
+      </div>
+    )
+  }
+}
+
+SubscribeForm.propTypes = {
+  messages: PropTypes.object,
+  styles: PropTypes.object
+}
+
+SubscribeForm.defaultProps = {
+  messages: {
+    inputPlaceholder: "Votre email",
+    btnLabel: "Envoyer",
+    sending: "Envoi en cours...",
+    success: "Merci de votre intérêt pour Prizoners !<p>Nous devons confirmer votre adresse e-mail. Pour compléter le processus d'abonnement, veuillez cliquer sur le lien contenu dans l'e-mail que nous venons de vous envoyer.</p>",
+    error: "Oops, impossible d'enregistrer cette adresse"
+  },
+  styles: {
+    sending: {
+      fontSize: 18,
+      color: "auto"
+    },
+    success: {
+      fontSize: 18,
+      color: "green"
+    },
+    error: {
+      fontSize: 18,
+      color: "red"
+    }
+  }
+}
+
+export default SubscribeForm
