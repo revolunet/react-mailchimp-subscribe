@@ -4,6 +4,8 @@
 
 React Ajax subscribe form for Mailchimp.
 
+Working demo : https://codesandbox.io/s/5wyqr6npw4
+
 ## Usage
 
 Create a list on mailchimp, add a form and get its "action" attribute
