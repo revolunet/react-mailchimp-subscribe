@@ -12,7 +12,7 @@ Create a list on mailchimp, add a form and get its "action" attribute
 import SubscribeFrom from 'react-mailchimp-subscribe'
 
 const formProps = {
-  action: '//xxxx.us13.list-manage.com/subscribe/post?u=695fze434a101fd2a718afddde8&id=72al97ece5'
+  action: '//xxxx.us13.list-manage.com/subscribe/post?u=695fze434a101fd2a718afddde8&id=72al97ece5',
   messages: {
     inputPlaceholder: "Votre email",
     btnLabel: "Envoyer",
