@@ -30,7 +30,8 @@
     "gh-pages": "^1.0.0",
     "nwb": "0.16.x",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-github-corner": "^0.3.0"
   },
   "author": "Julien Bouquillon <julien@revolunet.com>",
   "homepage": "https://revolunet.github.io/react-mailchimp-subscribe/",
