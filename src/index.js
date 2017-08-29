@@ -20,7 +20,7 @@ class SubscribeForm extends React.Component {
       })
       return
     }
-    const url = getAjaxUrl(this.props.action) + `&EMAIL=${this.input.value}`;
+    const url = getAjaxUrl(this.props.action) + `&EMAIL=${encodeURIComponent(this.input.value)}`;
     this.setState(
       {
         status: "sending",
