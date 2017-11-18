@@ -49,7 +49,7 @@ class SubscribeForm extends React.Component {
   }
   render() {
     const { action, messages, className, style, styles } = this.props
-    const { status } = this.state
+    const { status, msg } = this.state
     return (
       <div className={className} style={style}>
         <form action={action} method="post" noValidate>
@@ -71,8 +71,8 @@ class SubscribeForm extends React.Component {
             </button>
           </div>
           {status === "sending" && <p style={styles.sending} dangerouslySetInnerHTML={{ __html: messages.sending }} />}
-          {status === "success" && <p style={styles.success} dangerouslySetInnerHTML={{ __html: messages.success }} />}
-          {status === "error" && <p style={styles.error} dangerouslySetInnerHTML={{ __html: messages.error }} />}
+          {status === "success" && <p style={styles.success} dangerouslySetInnerHTML={{ __html: messages.success || msg }} />}
+          {status === "error" && <p style={styles.error} dangerouslySetInnerHTML={{ __html: messages.error || msg }} />}
         </form>
       </div>
     )
