@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "jsonp": "^0.2.1",
-    "prop-types": "^15.5.10"
+    "prop-types": "^15.5.10",
+    "to-querystring": "^1.0.4"
   },
   "peerDependencies": {
     "react": "15.x"

@@ -8,39 +8,37 @@ Working demo : https://revolunet.github.io/react-mailchimp-subscribe/
 
 ## Usage
 
-Create a list on mailchimp, add a form and get its "action" attribute
+Create a list on mailchimp, add a form and get its "action" attribute from the mailchimp UI
 
-```js
-import SubscribeFrom from 'react-mailchimp-subscribe'
+The `MailchimpSubscribe` gives you a render prop with a `subscribe` method that you can call with your data.
 
-const formProps = {
-  action: '//xxxx.us13.list-manage.com/subscribe/post?u=695fze434a101fd2a718afddde8&id=72al97ece5',
-  messages: {
-    inputPlaceholder: "Votre email",
-    btnLabel: "Envoyer",
-    sending: "Envoi en cours...",
-    success: "Merci de votre intérêt!",
-    error: "Oops, impossible d'enregistrer cette adresse"
-  },
-  styles: {
-    sending: {
-      fontSize: 18,
-      color: "auto"
-    },
-    success: {
-      fontSize: 18,
-      color: "green"
-    },
-    error: {
-      fontSize: 18,
-      color: "red"
-    }
-  }
-}
+In your app :
 
-const Form = () => <SubscribeFrom {...formProps}/>
+```jsx
+import MailchimpSubscribe from "react-mailchimp-subscribe"
 
+const url = "//xxxx.us13.list-manage.com/subscribe/post?u=zefzefzef&id=fnfgn";
+
+// simplest form (only email)
+const SimpleForm = () => <MailchimpSubscribe url={url}/>
+
+// use the render prop and your custom form
+const CustomForm = () => (
+  <MailchimpSubscribe
+    url={url}
+    render={({ subscribe, status, message }) => (
+      <div>
+        <MyForm onSubmitted={formData => subscribe(formData)} />
+        {status === "sending" && <div style={{ color: "blue" }}>sending...</div>}
+        {status === "error" && <div style={{ color: "red" }}>{message}</div>}
+        {status === "success" && <div style={{ color: "green" }}>Subscribed !</div>}
+      </div>
+    )}
+  />
+)
 ```
+
+see examples in [./demo/src](./demo/src)
 
 
 [npm-badge]: https://img.shields.io/npm/v/react-mailchimp-subscribe.png?style=flat-square

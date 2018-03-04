@@ -1,116 +1,70 @@
-import React from "react"
-import PropTypes from "prop-types"
-import jsonp from "jsonp"
+import React from "react";
+import PropTypes from "prop-types";
+import jsonp from "jsonp";
+import toQueryString from "to-querystring";
+import SimpleForm from "./SimpleForm";
 
-const getAjaxUrl = url => url.replace('/post?', '/post-json?')
+const getAjaxUrl = url => url.replace("/post?", "/post-json?");
 
-class SubscribeForm extends React.Component {
-  constructor(props, ...args) {
-    super(props, ...args)
-    this.state = {
-      status: null,
-      msg: null
-    }
-  }
-  onSubmit = e => {
-    e.preventDefault()
-    if (!this.input.value || this.input.value.length < 5 || this.input.value.indexOf("@") === -1) {
-      this.setState({
-        status: "error"
-      })
-      return
-    }
-    const url = getAjaxUrl(this.props.action) + `&EMAIL=${encodeURIComponent(this.input.value)}`;
+class MailchimpSubscribe extends React.Component {
+  state = {
+    status: null,
+    message: null
+  };
+  subscribe = data => {
+    const params = toQueryString(data);
+    const url = getAjaxUrl(this.props.url) + "&" + params;
     this.setState(
       {
         status: "sending",
-        msg: null
-      }, () => jsonp(url, {
-        param: "c"
-      }, (err, data) => {
-        if (err) {
-          this.setState({
-            status: 'error',
-            msg: err
-          });
-          if(this.props.onError!==undefined)this.props.onError();
-        } else if (data.result !== 'success') {
-          this.setState({
-            status: 'error',
-            msg: data.msg
-          })
-          if(this.props.onError!==undefined)this.props.onError();
-        } else {
-          this.setState({
-            status: 'success',
-            msg: data.msg
-          });
-          if(this.props.onSuccess!==undefined)this.props.onSuccess();
-        }
-      })
-    )
-  }
+        message: null
+      },
+      () =>
+        jsonp(
+          url,
+          {
+            param: "c"
+          },
+          (err, data) => {
+            console.log("err, data", err, data);
+            if (err) {
+              this.setState({
+                status: "error",
+                message: err
+              });
+            } else if (data.result !== "success") {
+              this.setState({
+                status: "error",
+                message: data.msg
+              });
+            } else {
+              this.setState({
+                status: "success",
+                message: data.msg
+              });
+            }
+          }
+        )
+    );
+  };
   render() {
-    const { action, messages, className, style, styles } = this.props
-    const { status, msg } = this.state
-    return (
-      <div className={className} style={style}>
-        <form action={action} method="post" noValidate>
-          <div>
-            <input
-              ref={node => (this.input = node)}
-              type="email"
-              defaultValue=""
-              name="EMAIL"
-              required={true}
-              placeholder={messages.inputPlaceholder}
-            />
-            <button
-              disabled={this.state.status === "sending" || this.state.status === "success"}
-              onClick={this.onSubmit}
-              type="submit"
-            >
-              {messages.btnLabel}
-            </button>
-          </div>
-          {status === "sending" && <p style={styles.sending} dangerouslySetInnerHTML={{ __html: messages.sending }} />}
-          {status === "success" && <p style={styles.success} dangerouslySetInnerHTML={{ __html: messages.success || msg }} />}
-          {status === "error" && <p style={styles.error} dangerouslySetInnerHTML={{ __html: messages.error || msg }} />}
-        </form>
-      </div>
-    )
+    return this.props.render({
+      subscribe: this.subscribe,
+      status: this.state.status,
+      message: this.state.message
+    });
   }
 }
 
-SubscribeForm.propTypes = {
-  messages: PropTypes.object,
-  styles: PropTypes.object,
-  onSuccess: PropTypes.func,
-  onError: PropTypes.func
-}
+MailchimpSubscribe.propTypes = {
+  render: PropTypes.func,
+  url: PropTypes.string.isRequired
+};
 
-SubscribeForm.defaultProps = {
-  messages: {
-    inputPlaceholder: "Votre email",
-    btnLabel: "Envoyer",
-    sending: "Envoi en cours...",
-    success: "Merci de votre intérêt!<p>Nous devons confirmer votre adresse e-mail. Pour compléter le processus d'abonnement, veuillez cliquer sur le lien contenu dans l'e-mail que nous venons de vous envoyer.</p>",
-    error: "Oops, impossible d'enregistrer cette adresse"
-  },
-  styles: {
-    sending: {
-      fontSize: 18,
-      color: "auto"
-    },
-    success: {
-      fontSize: 18,
-      color: "green"
-    },
-    error: {
-      fontSize: 18,
-      color: "red"
-    }
-  }
-}
+MailchimpSubscribe.defaultProps = {
+  render: ({ subscribe, status, message }) => (
+    <SimpleForm status={status} message={message} onSubmitted={formData => subscribe(formData)} />
+  )
+};
 
-export default SubscribeForm
+export default MailchimpSubscribe;
