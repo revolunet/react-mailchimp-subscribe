@@ -4,7 +4,7 @@
 
 React Ajax subscribe form for Mailchimp.
 
-Working demo : https://codesandbox.io/s/5wyqr6npw4
+Working demo : https://revolunet.github.io/react-mailchimp-subscribe/
 
 ## Usage
 
