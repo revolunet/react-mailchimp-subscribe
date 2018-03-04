@@ -32,17 +32,20 @@ class SubscribeForm extends React.Component {
           this.setState({
             status: 'error',
             msg: err
-          })
+          });
+          if(this.props.onError!==undefined)this.props.onError();
         } else if (data.result !== 'success') {
           this.setState({
             status: 'error',
             msg: data.msg
           })
+          if(this.props.onError!==undefined)this.props.onError();
         } else {
           this.setState({
             status: 'success',
             msg: data.msg
-          })
+          });
+          if(this.props.onSuccess!==undefined)this.props.onSuccess();
         }
       })
     )
@@ -81,7 +84,9 @@ class SubscribeForm extends React.Component {
 
 SubscribeForm.propTypes = {
   messages: PropTypes.object,
-  styles: PropTypes.object
+  styles: PropTypes.object,
+  onSuccess: PropTypes.func,
+  onError: PropTypes.func
 }
 
 SubscribeForm.defaultProps = {
