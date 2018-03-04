@@ -17,7 +17,9 @@
     "test": "nwb test-react",
     "test:coverage": "nwb test-react --coverage",
     "test:watch": "nwb test-react --server",
-    "gh-pages": "gh-pages -d ./demo/dist"
+    "gh-pages": "gh-pages -d ./demo/dist",
+    "prepublish": "npm run build",
+    "postpublish": "npm run gh-pages"
   },
   "dependencies": {
     "jsonp": "^0.2.1",
