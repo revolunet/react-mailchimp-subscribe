@@ -2,7 +2,7 @@
 
 [![npm package][npm-badge]][npm]
 
-React Ajax subscribe form for Mailchimp.
+React subscribe form for Mailchimp.
 
 Working demo : https://revolunet.github.io/react-mailchimp-subscribe/
 
