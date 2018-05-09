@@ -26,8 +26,18 @@ const CustomForm = ({ status, message, onValidated }) => {
       }}
     >
       {status === "sending" && <div style={{ color: "blue" }}>sending...</div>}
-      {status === "error" && <div style={{ color: "red" }}>{message}</div>}
-      {status === "success" && <div style={{ color: "green" }}>{message}</div>}
+      {status === "error" && (
+        <div
+          style={{ color: "red" }}
+          dangerouslySetInnerHTML={{ __html: message }}
+        />
+      )}
+      {status === "success" && (
+        <div
+          style={{ color: "green" }}
+          dangerouslySetInnerHTML={{ __html: message }}
+        />
+      )}
       <input
         style={{ fontSize: "2em", padding: 5 }}
         ref={node => (name = node)}

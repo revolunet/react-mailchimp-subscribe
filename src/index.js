@@ -63,7 +63,11 @@ MailchimpSubscribe.propTypes = {
 
 MailchimpSubscribe.defaultProps = {
   render: ({ subscribe, status, message }) => (
-    <SimpleForm status={status} message={message} onSubmitted={formData => subscribe(formData)} />
+    <SimpleForm
+      status={status}
+      message={message}
+      onSubmitted={formData => subscribe(formData)}
+    />
   )
 };
 
