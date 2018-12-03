@@ -26,7 +26,6 @@ class MailchimpSubscribe extends React.Component {
             param: "c"
           },
           (err, data) => {
-            console.log("err, data", err, data);
             if (err) {
               this.setState({
                 status: "error",
