@@ -62,7 +62,7 @@ const CustomForm = ({ status, message, onValidated }) => {
 class Demo extends Component {
   render() {
     const url =
-      "https://sachagreif.us2.list-manage.com/subscribe/post?u=b5af47765edbd2fc173dbf27a&id=d8282e7e96";
+      "https://jster.us7.list-manage.com/subscribe/post?u=ed40c0084a0c5ba31b3365d65&id=ec6f32bf5e";
     return (
       <div>
         <h1>react-mailchimp-subscribe Demo</h1>
