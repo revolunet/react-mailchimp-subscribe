@@ -1,10 +1,15 @@
 {
   "name": "react-mailchimp-subscribe",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "react-mailchimp-subscribe React component",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "files": ["css", "es", "lib", "umd"],
+  "files": [
+    "css",
+    "es",
+    "lib",
+    "umd"
+  ],
   "scripts": {
     "build": "nwb build-react-component",
     "clean": "nwb clean-module && nwb clean-demo",
@@ -38,7 +43,9 @@
     "type": "git",
     "url": "git+https://github.com/revolunet/react-mailchimp-subscribe.git"
   },
-  "keywords": ["react-component"],
+  "keywords": [
+    "react-component"
+  ],
   "bugs": {
     "url": "https://github.com/revolunet/react-mailchimp-subscribe/issues"
   }
