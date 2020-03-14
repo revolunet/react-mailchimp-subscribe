@@ -32,7 +32,7 @@ const SimpleForm = ({ status, message, className, style, onSubmitted }) => {
         type="email"
         placeholder="Your email"
       />
-      <input type="submit" value="Submit" />
+      <button type="submit">Submit</button>
     </Form>
   );
 };
