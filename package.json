@@ -27,7 +27,7 @@
     "to-querystring": "^1.0.4"
   },
   "peerDependencies": {
-    "react": "15||16"
+    "react": "15||17"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
