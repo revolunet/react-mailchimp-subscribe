@@ -3,15 +3,17 @@ import React from "react";
 // a basic form
 const SimpleForm = ({ status, message, className, style, onSubmitted }) => {
   let input;
-  const submit = () =>
+  const submit = e => {
+    e.preventDefault();
     input &&
-    input.value.indexOf("@") > -1 &&
-    onSubmitted({
-      EMAIL: input.value
-    });
+      input.value.indexOf("@") > -1 &&
+      onSubmitted({
+        EMAIL: input.value
+      });
+  };
 
   return (
-    <div className={className} style={style}>
+    <Form className={className} style={style} onSubmit={submit}>
       {status === "sending" && <div style={{ color: "blue" }}>sending...</div>}
       {status === "error" && (
         <div
@@ -30,8 +32,8 @@ const SimpleForm = ({ status, message, className, style, onSubmitted }) => {
         type="email"
         placeholder="Your email"
       />
-      <button onClick={submit}>Submit</button>
-    </div>
+      <button type="submit">Submit</button>
+    </Form>
   );
 };
 
