@@ -8,7 +8,7 @@ Working demo : https://revolunet.github.io/react-mailchimp-subscribe/
 
 ## Usage
 
-Create a list on mailchimp, add a form and get its "action" attribute from the mailchimp UI
+Create a list on mailchimp, add an "Embedded" form and get its "action" attribute from the mailchimp UI
 
 The `MailchimpSubscribe` gives you a render prop with a `subscribe` method that you can call with your data.
 
