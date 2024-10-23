@@ -31,16 +31,19 @@ class MailchimpSubscribe extends React.Component {
                 status: "error",
                 message: err
               });
+              if(this.props.onError!==undefined)this.props.onError();
             } else if (data.result !== "success") {
               this.setState({
                 status: "error",
                 message: data.msg
               });
+              if(this.props.onError!==undefined)this.props.onError();
             } else {
               this.setState({
                 status: "success",
                 message: data.msg
               });
+              if(this.props.onSuccess!==undefined) this.props.onSuccess();
             }
           }
         )
@@ -57,7 +60,9 @@ class MailchimpSubscribe extends React.Component {
 
 MailchimpSubscribe.propTypes = {
   render: PropTypes.func,
-  url: PropTypes.string.isRequired
+  url: PropTypes.string.isRequired,
+  onSuccess: PropTypes.func,
+  onError: PropTypes.func,
 };
 
 MailchimpSubscribe.defaultProps = {
